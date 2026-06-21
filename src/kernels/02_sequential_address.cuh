@@ -10,13 +10,12 @@ __global__ void batched_sequential_address(
   X += blockDim.x * blockIdx.x;
 
   shared_data[threadIdx.x] = X[threadIdx.x];
-  __syncthreads();
   
   for (int stride = NUM_THREADS / 2; stride > 0; stride /= 2) {
+    __syncthreads();
     if(threadIdx.x < stride) {
       shared_data[threadIdx.x] += shared_data[threadIdx.x + stride];
     }
-    __syncthreads();
   }
   
   if (threadIdx.x == 0) {
