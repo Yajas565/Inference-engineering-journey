@@ -2,7 +2,7 @@
 using namespace std;
 
 template<size_t NUM_THREADS>
-__global__ void batched_interleaved_address_naive(
+__global__ void batched_interleaved_address_divergence_resolved(
   float* __restrict__ Y,
   float* const __restrict__ X
 ) {
